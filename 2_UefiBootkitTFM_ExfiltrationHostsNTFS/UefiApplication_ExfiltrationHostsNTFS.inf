@@ -1,0 +1,74 @@
+# .INF File
+# https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files#the-inf-file
+
+# This file describes how to build a module (i.e. a driver, library, application, etc…)
+
+
+[Defines]
+	INF_VERSION                    = 1.25                                  # Define la versión de la especificación INF de EDK II que admite el archivo INF
+	BASE_NAME                      = UefiBootkitTFM_ExfiltrationHostsNTFS  # Define el nombre de salida base del módulo (aplicación, biblioteca, etc.) cuando se compila, lo que da como resultado el binario final .efi o .lib
+	FILE_GUID                      = 00000000-0000-0000-0000-000000000000  # Un GUID único para este módulo. Revisar http://www.guidgen.com/
+	MODULE_TYPE                    = UEFI_APPLICATION                      # # El tipo de módulo que se está creando. Esto incluye elementos como UEFI_DRIVER, UEFI_APPLICATION, DXE_DRIVER, etc. En el caso de las bibliotecas, puede ser BASE, USER_DEFINED, etc.
+	VERSION_STRING                 = 1.0                                   # La versión definida por el desarrollador de su módulo, número mayor "." número menor
+	ENTRY_POINT                    = UefiMain                              # Si su módulo no es una biblioteca, esta variable define la función que se ejecutará al inicio. Es similar a la función main() en C
+
+
+# Enumera los distintos paquetes que utilizará el módulo. Esto indica al sistema de compilación dónde buscar las clases de biblioteca (archivos de encabezado para la biblioteca), PCD, GUID, protocolos y PPI a través de los distintos archivos .DEC de los paquetes. El archivo .DCS de este paquete no se utiliza. Normalmente, el paquete mínimo requerido es MdePkg.dec
+[Packages]
+	MdePkg/MdePkg.dec
+		# El paquete de entorno de desarrollo de módulos (MdePkg) es un paquete especial, ya que constituye la infraestructura mínima necesaria para crear un módulo
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/MdePkg.dec
+	ShellPkg/ShellPkg.dec
+		# Este paquete proporciona todas las definiciones para EFI y UEFI Shell
+		# https://github.com/tianocore/edk2/blob/master/ShellPkg/ShellPkg.dec
+
+
+# List the various source and header files used to build the module.
+[Sources]
+	# UEFI Application
+	UefiApplication_Main.c  # Main
+	Utils/UtilsFiles.c      # Files Utils (WriteBinaryFile, LoadImageFileIntoMemory, ...)
+
+
+# Enumera las distintas bibliotecas que utiliza el módulo y con las que debe vincularse. Este es el valor LibNameToReference que el módulo de biblioteca utiliza en su archivo .INF. Para cada entrada de esta sección, debe haber una entrada en el sector [LibraryClasses] del archivo .DSC asociado a este módulo. Esto se debe a que los paquetes de la sección [Packages] no se utilizan para determinar el módulo de biblioteca con el que vincularse.
+[LibraryClasses]
+	# Entry Point
+	UefiApplicationEntryPoint
+		# Biblioteca de puntos de entrada de módulos para aplicaciones UEFI
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Library/UefiApplicationEntryPoint.h
+	
+	# Base
+	UefiLib
+		# Proporciona funciones de biblioteca para operaciones UEFI comunes. Solo disponible para los tipos de módulos DXE y UEFI.
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Library/UefiLib.h
+	
+	# Memoria
+	BaseMemoryLib
+		# Proporciona funciones de copiar memoria, rellenar memoria, limpiar memoria y GUID
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Library/BaseMemoryLib.h
+	MemoryAllocationLib
+		# Proporciona servicios para asignar y liberar búferes de memoria de varios tipos y alineaciones
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Library/MemoryAllocationLib.h
+	
+	# Ficheros
+	DevicePathLib
+		# Proporciona funciones de biblioteca para construir y analizar rutas de dispositivos UEFI
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Library/DevicePathLib.h
+	
+	# Shell
+	ShellLib
+		# Proporciona una interfaz para la funcionalidad del shell para comandos y aplicaciones del shell
+		# https://github.com/tianocore/edk2/blob/master/ShellPkg/Library/UefiShellLib/UefiShellLib.inf
+
+
+# Enumera los distintos nombres de variables GUID del protocolo que necesitan o utilizan las fuentes. El nombre de la variable se define en una de las secciones [Packages].DEC [Guids]. También se enumeran las definiciones del bloque de uso para el protocolo de este módulo.
+[Protocols]
+	gEfiLoadedImageProtocolGuid                                         
+		# https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Protocol/LoadedImage.h
+	
+	gEfiSimpleFileSystemProtocolGuid
+		#https://github.com/tianocore/edk2/blob/master/MdePkg/Include/Protocol/SimpleFileSystem.h
+
+
+# Enumera los distintos nombres de variables GUID necesarios/utilizados por las fuentes. El nombre de la variable se define en una de las secciones [Packages].DEC [Guids]. El bloque de uso SOMETIMES_PRODUCES y el tipo de guía UNDEFINED significan que el módulo producirá un GUID que no se ajusta a los tipos PROTOCOL o PPI definidos. Este módulo produce condicionalmente el GUID nombrado.
+[Guids]
