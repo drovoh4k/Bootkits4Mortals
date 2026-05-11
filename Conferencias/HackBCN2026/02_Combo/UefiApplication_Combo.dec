@@ -1,0 +1,12 @@
+# .DEC File
+# https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files#the-dec-file
+
+[Defines]
+	DEC_SPECIFICATION   = 1.25
+	PACKAGE_NAME        = UefiApplication_Combo
+	PACKAGE_GUID        = ca11ab1e-cafe-beef-dead-c0debabe0003
+	PACKAGE_VERSION     = 1.00
+
+
+[Includes]
+	.

@@ -1,0 +1,44 @@
+# .INF File
+# https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files#the-inf-file
+
+
+[Defines]
+	INF_VERSION                    = 1.25
+	BASE_NAME                      = UefiApplication_Combo
+	FILE_GUID                      = ca11ab1e-cafe-beef-dead-c0debabe0001
+	MODULE_TYPE                    = UEFI_APPLICATION
+	VERSION_STRING                 = 1.0
+	ENTRY_POINT                    = UefiMain
+
+
+[Packages]
+	MdePkg/MdePkg.dec
+	ShellPkg/ShellPkg.dec
+
+
+[Sources]
+	UefiApplication_Main.c
+	Utils/UtilsFiles.c
+	Utils/UtilsGraphics.c
+	Utils/UtilsUi.c
+
+
+[LibraryClasses]
+	UefiApplicationEntryPoint
+	UefiBootServicesTableLib
+	UefiLib
+	BaseLib
+	MemoryAllocationLib
+	BaseMemoryLib
+	DevicePathLib
+	ShellLib
+
+
+[Protocols]
+	gEfiLoadedImageProtocolGuid
+	gEfiSimpleFileSystemProtocolGuid
+	gEfiGraphicsOutputProtocolGuid
+
+
+[Guids]
+	gEfiFileInfoGuid

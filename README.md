@@ -46,11 +46,17 @@ Una vez compilado el proyecto, el script [`Scripts/LoadAndRunBootkit.ps1`](Scrip
 Bootkits4Mortals/
 ├── Scripts/
 │   └── LoadAndRunBootkit.ps1       # Despliegue automatizado en la ESP
-└── TFM/                            # Código y documento del TFM de máster
-    ├── 00_HelloWorld/
-    ├── 01_LoadDriverNTFS/
-    ├── 02_ExfiltrationHostsNTFS/
-    └── TFM - Desarrollo de bootkits para mortales.pdf
+├── TFM/                            # Código y documento del TFM de máster
+│   ├── 00_HelloWorld/
+│   ├── 01_LoadDriverNTFS/
+│   ├── 02_ExfiltrationHostsNTFS/
+│   └── TFM - Desarrollo de bootkits para mortales.pdf
+└── Conferencias/
+    └── HackBCN2026/                # HackBCN 2026 — Bootkits para Mortales
+        ├── 00_HelloWorld/
+        ├── 01_LoadDriverNTFS/
+        ├── 02_Combo/
+        └── BOOTKITS_para_MORTALES.pptx
 ```
 
 ### TFM
@@ -62,6 +68,16 @@ Progresión del trabajo de máster, desde una aplicación UEFI básica hasta un 
 | `00_HelloWorld` | Aplicación UEFI "Hello World". Punto de entrada al entorno EDK2 y su jerarquía de compilación. |
 | `01_LoadDriverNTFS` | Carga un driver NTFS desde UEFI para leer y escribir en particiones Windows. |
 | `02_ExfiltrationHostsNTFS` | Bootkit funcional que aprovecha el driver NTFS para leer y modificar ficheros clave del sistema. |
+
+### Conferencias / HackBCN2026
+
+Versión evolucionada del TFM presentada en HackBCN 2026. Incorpora mejoras técnicas y añade un componente de ransomware UEFI.
+
+| Carpeta | Descripción |
+|---|---|
+| `00_HelloWorld` | Aplicación UEFI "Hello World". |
+| `01_LoadDriverNTFS` | Carga un driver NTFS desde UEFI (versión mejorada respecto al TFM). |
+| `02_Combo` | Bootkit completo. Carga el driver NTFS y cifra con XOR una carpeta concreta, actuando como mini-ransomware UEFI. |
 
 
 ## 🛣️ Siguientes Pasos

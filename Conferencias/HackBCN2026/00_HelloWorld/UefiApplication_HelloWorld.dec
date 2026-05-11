@@ -1,0 +1,15 @@
+# .DEC File
+# https://github.com/tianocore/tianocore.github.io/wiki/Build-Description-Files#the-dec-file
+
+# Este archivo se utiliza para declarar lo que está disponible en el paquete e indica al sistema de compilación dónde encontrar elementos como los directorios «Include». También se puede utilizar para sustituir el uso de valores #define o variables constantes en archivos .h mediante un mecanismo denominado Base de datos de configuración de plataforma (PCD). Este archivo se utiliza cuando un módulo incluye este paquete en su sección [Packages].
+
+
+[Defines]
+	DEC_SPECIFICATION   = 1.25                                  # Define la versión de la especificación DEC de EDK II que admite el archivo DEC
+	PACKAGE_NAME        = UefiApplication_HelloWorld            # Define el nombre base de salida del paquete
+	PACKAGE_GUID        = 00000000-0000-0000-0000-000000000000  # Un GUID único para este módulo. Revisar http://www.guidgen.com/
+	PACKAGE_VERSION     = 1.00                                  # La versión definida por el desarrollador de su módulo, número mayor «.» número menor
+
+
+# Esta sección enumera los directorios de inclusión para el paquete y los módulos que utilizan el paquete (la ruta de búsqueda para los archivos .h). La sección [Incudes] también puede indicar los directorios por arquitectura utilizados añadiendo un punto y el nombre de la arquitectura al nombre de Includes. Por ejemplo, [Includes.IA32], [Includes.X64]. Aquí es donde los módulos .C buscan los archivos #include <header.h>.
+[Includes]
