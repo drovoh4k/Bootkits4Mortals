@@ -1,6 +1,8 @@
 # 🦑 Desarrollo de Bootkits para Mortales
 
-![Bootkit Image](Images/bootkit_cartografo.png)
+<p align="center">
+    <img src="Images/bootkit_cartografo.png" alt="ldd" width="500" />
+</p>
 
 > Si yo pude, tú también (probablemente)
 
@@ -12,42 +14,64 @@ Este proyecto nace con el objetivo de desmitificar la complejidad inherente al d
 Este repositorio proporciona una guía introductoria y práctica que abarca desde los conceptos teóricos básicos hasta la creación de un bootkit funcional, sirviendo como un punto de partida claro y accesible para cualquier persona interesada en este mundo.
 
 
-## 🚀 Cómo Empezar
+## 🛠️ Requisitos
 
-Para poder compilar y ejecutar el código de este repositorio, es fundamental configurar el entorno de trabajo. En los anexos del proyecto encontrarás guías detalladas para cada uno de los pasos principales:
+Antes de compilar cualquier proyecto necesitas:
 
-1. **Preparar las Máquinas Virtuales:**
-    - El anexo A detalla el proceso de instalación y configuración de una máquina virtual Windows de forma desatendida.
+- **Máquina Virtual Windows** — se recomienda Windows 10/11 (ver Anexo A)
+- **EDK2** con **Visual Studio** — entorno de compilación para aplicaciones UEFI (ver Anexo B)
+- **Dependencias**: Git, Python 3.x, NASM
 
-2. **Configurar el Entorno de Desarrollo de Bootkits:**
-    - El anexo B explica paso a paso cómo instalar y configurar el entorno EDK2 junto con Visual Studio 2019 y otras dependencias (Git, Python, nasm) para compilar aplicaciones UEFI.
+> Los Anexos A, B y C están incluidos en el [documento TFM](TFM/TFM%20-%20Desarrollo%20de%20bootkits%20para%20mortales.pdf).
+
+## 🚀 Despliegue rápido
+
+Una vez compilado el proyecto, el script [`Scripts/LoadAndRunBootkit.ps1`](Scripts/LoadAndRunBootkit.ps1) automatiza el despliegue en la máquina virtual:
+
+1. Verifica privilegios de administrador (se auto-eleva si es necesario)
+2. Monta la partición EFI del sistema
+3. Copia todos los `.efi` desde `C:\Bootkit` a `\EFI\Boot\Bootkit` en la ESP
+4. Desmonta la partición EFI
+5. Reinicia el equipo
+
+```powershell
+# Uso con rutas por defecto
+.\Scripts\LoadAndRunBootkit.ps1
+```
 
 
 ## 📂 Estructura del Proyecto
 
-El código está organizado en carpetas que representan la progresión del trabajo, desde una aplicación básica hasta un bootkit funcional con capacidad de interactuar con el sistema de ficheros NTFS.
+```
+Bootkits4Mortals/
+├── Scripts/
+│   └── LoadAndRunBootkit.ps1       # Despliegue automatizado en la ESP
+└── TFM/                            # Código y documento del TFM de máster
+    ├── 00_HelloWorld/
+    ├── 01_LoadDriverNTFS/
+    ├── 02_ExfiltrationHostsNTFS/
+    └── TFM - Desarrollo de bootkits para mortales.pdf
+```
 
-* **`01-HelloWorldUEFI`**
-    - Una aplicación UEFI básica "Hello World" diseñada para familiarizarse con el entorno de desarrollo EDK2 y su jerarquía de compilación.
-* **`02-LoadDriverNTFS`**
-    - Una aplicación UEFI que carga un driver para poder leer y escribir en particiones con formato NTFS, permitiendo así la interacción con el sistema de ficheros de Windows desde el entorno UEFI.
-* **`03-ExfiltrationHostsNTFS`**
-    - Un bootkit que aprovecha el driver NTFS para leer y escribir ficheros clave.
-* **`Scripts`**
-    - Scripts de automatización para optimizar ciertos procesos.
+### TFM
+
+Progresión del trabajo de máster, desde una aplicación UEFI básica hasta un bootkit funcional con acceso al sistema de ficheros NTFS.
+
+| Carpeta | Descripción |
+|---|---|
+| `00_HelloWorld` | Aplicación UEFI "Hello World". Punto de entrada al entorno EDK2 y su jerarquía de compilación. |
+| `01_LoadDriverNTFS` | Carga un driver NTFS desde UEFI para leer y escribir en particiones Windows. |
+| `02_ExfiltrationHostsNTFS` | Bootkit funcional que aprovecha el driver NTFS para leer y modificar ficheros clave del sistema. |
 
 
 ## 🛣️ Siguientes Pasos
 
-Este proyecto sienta las bases, pero es solo la punta del iceberg. La evolución natural, como se discute en el quinto capítulo, consiste en desarrollar un loader capaz de inyectar un rootkit interceptando la cadena de arranque de Windows.
+Este proyecto sienta las bases, pero es solo la punta del iceberg. La evolución natural consiste en desarrollar un loader capaz de inyectar un rootkit interceptando la cadena de arranque de Windows (ver capítulo 5 del TFM).
 
-El anexo C es una guía para preparar un entorno de desarrollo de rootkits usando Visual Studio 2022 y WDK.
+Para quienes deseen profundizar, se recomienda estudiar:
 
-Además, para quienes deseen profundizar, se recomienda encarecidamente estudiar los siguientes proyectos:
-
-- **[Abyss](https://github.com/TheMalwareGuardian/Abyss):** Un framework de investigación centrado en técnicas avanzadas de bootkits.
-
-- **[Benthic](https://github.com/TheMalwareGuardian/Benthic):** Un framework de investigación enfocado en técnicas avanzadas de rootkits.
+- **[Abyss](https://github.com/TheMalwareGuardian/Abyss):** Framework de investigación sobre técnicas avanzadas de bootkits.
+- **[Benthic](https://github.com/TheMalwareGuardian/Benthic):** Framework de investigación sobre técnicas avanzadas de rootkits.
 
 
 ## 📨 Contacto
